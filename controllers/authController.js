@@ -9,6 +9,7 @@ const bcrypt = require ('bcryptjs')
 
 router.post('/register', async (req, res, next) => {
   console.log(req.body, ' this is session')
+  
   const password = req.body.password
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
@@ -18,6 +19,7 @@ router.post('/register', async (req, res, next) => {
   userDbEntry.name = req.body.name
   userDbEntry.municipality = req.body.municipality
   userDbEntry.barrio = req.body.barrio
+
   try {
     const newUser = await User.create(userDbEntry);
     req.session.logged = true;
@@ -43,6 +45,7 @@ router.post('/login', async (req, res, next) => {
   try {
     const foundUser = await User.findOne({'username': req.body.username});
     console.log(foundUser + 'foundUser');
+
     if(foundUser){
       if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
         req.session.message = '';
@@ -54,6 +57,7 @@ router.post('/login', async (req, res, next) => {
           status: 200,
           data: 'login successful'
         });
+
       }else{
 
         res.json({

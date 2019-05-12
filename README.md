@@ -1,5 +1,7 @@
 README.md
 
+#Yucaju-App
+
 ## API Doc
 
 This API Doc includes all the resources that make up the official Yucaju App REST API
@@ -15,7 +17,7 @@ All API access is over HTTPS. All data is sent and received as JSON.
 
 `POST /auth/register`
 
-Creates the user session.
+Creates the user registration session.
 
 Requested body should include the following fields:
 	-- username
@@ -32,15 +34,29 @@ Requested body should include the following fields:
 	-- username
 	-- password
 
+`GET /users`
+
+Gets list of all users.
+
+Requested body should include the following fields:
+	--None
+
+`GET /users/:id`
+
+Gets one user.
+
+Requested body should include the following fields:
+	--user id
+
 `PUT /user/:id/edit`
 
-Updates the user municipality and barrio
+Updates the user municipality and barrio properties. 
 
 Requested body should include the following fields:
 	-- municipality
 	-- barrio 
 
-`PUT /user/:id/safety--`
+`PUT /user/:id/editsafety`
 
 Updates the user safety. It takes a boolean value to indicate safety.
 

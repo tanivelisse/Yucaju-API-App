@@ -27,8 +27,10 @@ app.use(cors(corsOptions));
 
 //AUTH MIDDLEWARE
 const authController  = require('./controllers/authController');
+const userController = require('./controllers/userController');
 
 app.use('/auth', authController);
+app.use('/users', userController);
 
 
 
