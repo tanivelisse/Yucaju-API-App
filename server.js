@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
-const bodyPaser = require('body-parser')
+const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors');
 
+require('./db/db');
 
 //MIDDLEWARE 
 app.use(session({
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 //CORS MIDDLEWARE
 const corsOptions = {
-  origin: 'http://localhost:3000', // when you deploy your react app, this is where you put the address,
+  origin: 'http://localhost:3000', // when deploying react app, this is where the address goes,
   credentials: true, // allowing cookies to be sent with requests from the client (session cookie),
   optionsSuccessStatus: 200 // some legacy browsers IE11 choke on a 204, and options requests
 }

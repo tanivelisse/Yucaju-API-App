@@ -1,8 +1,8 @@
 README.md
 
-## API
+## API Doc
 
-This describes the resources that make up the official Yucaju App REST API
+This API Doc includes all the resources that make up the official Yucaju App REST API
 
 #### Current Version:
 
@@ -13,76 +13,67 @@ All API access is over HTTPS. All data is sent and received as JSON.
 
 #### Routes:
 
-`POST /auth/register -- `
+`POST /auth/register`
 
-Creates the user session with user town and barrio location.
+Creates the user session.
 
-Request body should include the following fields:
+Requested body should include the following fields:
 	-- username
 	-- password
 	-- name
-	-- town
-	-- location(town/barrio)
+	-- municipality
+	-- barrio
 
-`GET /resources -- `
+`POST /auth/login`
 
-Gets resources for user.
+Creates the registered user session.
 
-Request body should include the following fields:
-	-- location {town/city}{barrio}
-	-- type
-	-- description
-	-- directions
+Requested body should include the following fields:
+	-- username
+	-- password
 
+`PUT /user/:id/edit`
+
+Updates the user municipality and barrio
+
+Requested body should include the following fields:
+	-- municipality
+	-- barrio 
+
+`PUT /user/:id/safety--`
+
+Updates the user safety. It takes a boolean value to indicate safety.
+
+Requested body should include the following fields:
+	-- safety
+
+`DELETE /user/:id --`
+
+Deletes the user.
+
+Request body should include the following fields: 
+	-- user ID
 
 `GET /weather-alerts --`
 
 Gets weather alerts by location based on town location through 3rd party API. 
  Request body should include the following fields:
-	-- location{town/city}
+	-- zipcode 
 
-`POST /resource --`
-
-Creates the resource.
-
-Request body should include the following fields:
-	-- location{town/city}{barrio}
-	-- description
-	-- type
-	-- directions
-
-`PUT /resource --`
-
-Updates the resource.
-
-Request body should include the following fields:
-	-- description
-	-- type
-	-- directions
-
-`DELETE /resource --`
-
-Deletes the resource.
-
-Request body should include the following fields: 
-	-- None
 
 ### Models
 
 -- User Model
-	- username
-	- password
-	- name
-	- location
-		- town/city
-		- barrio
--- Resource Model
-	- type
-	- description
-	- directions
-	- location
-		- town/city
-		- barrio
+	```{
+		  username: String,
+		  password: String,
+		  name: String,
+		  municipality: String,
+		  barrio: String,
+		  safety: Boolean
+		}```
+		
+
 
 
 
