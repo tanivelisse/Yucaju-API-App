@@ -40,7 +40,12 @@ router.put('/:id/edit', async(req, res,next)=>{
 
 //USER SAFETY UPDATE ROUTE
 router.put('/:id/editsafety', async (req,res,next)=>{
-	const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+	if(req.body.safety === 'on'){
+    	req.body.safety = true;
+  	} else {
+    	req.body.safety = false;
+  	}
+	const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body.safety, {new: true})
 	res.json({
 			status: 200,
 			data: updatedUser
