@@ -119,9 +119,9 @@ In this API we have two models, the User and the Resource. The resources created
 		  barrio: String,
 		  safety: Boolean
 		  resources: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Resources'
-	}]
+						type: mongoose.Schema.Types.ObjectId,
+						ref: 'Resources'
+					 }]
 		}```
 -- Resources 
 	``` {
