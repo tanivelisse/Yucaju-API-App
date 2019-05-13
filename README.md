@@ -108,7 +108,9 @@ Requested body should include the following fields:
 
 ### Models
 
--- User Model
+In this API we have two models, the User and the Resource. The resources created by the user are attached to it, by referencing the Resource model in the User model. 
+
+-- User 
 	```{
 		  username: String,
 		  password: String,
@@ -116,8 +118,12 @@ Requested body should include the following fields:
 		  municipality: String,
 		  barrio: String,
 		  safety: Boolean
+		  resources: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Resources'
+	}]
 		}```
--- Resources Model
+-- Resources 
 	``` {
 		  type: String,
 		  description: String

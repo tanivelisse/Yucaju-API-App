@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Resource = require('../models/resource');
 
 
 const UserSchema = new mongoose.Schema({
@@ -7,7 +8,11 @@ const UserSchema = new mongoose.Schema({
   name: String,
   municipality: String,
   barrio: String,
-  safety: Boolean
+  safety: Boolean,
+  resources: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Resource'
+	}]
 });
 
 
