@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 
 const resourceSchema = new mongoose.Schema({
-    type:['water','gas/power','food', 'transportation', 'tools'],
+    type:String,
     description: String
 });
 
 
 
-module.exports = mongoose.model('Resource', UserSchema);
+module.exports = mongoose.model('Resource', resourceSchema);
