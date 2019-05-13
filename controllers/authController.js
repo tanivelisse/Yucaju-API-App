@@ -3,6 +3,52 @@ const router = express.Router();
 const session = require('express-session')
 const User = require('../models/user')
 const bcrypt = require ('bcryptjs')
+const superagent = require('superagent')
+
+router.get('/municipality', async (req, res, next) => {
+  try {
+    const apiRes = await superagent.get(`https://data.pr.gov/api/views/rtan-qj3c/rows.json`)
+    console.log(typeof apiRes)
+    console.log(Object.keys(apiRes));
+    const text = JSON.parse(apiRes.text)
+    const data = text.data
+
+    // convert array of arrays 
+    // to array of 
+
+    const towns = data.map((barrioArr) => {
+      return {
+        municipality: barrioArr[barrioArr.length-9],
+        barrio: barrioArr[barrioArr.length-10]  
+      }
+    })
+
+    res.status(200).json({
+      status: 200,
+      data: towns
+    })
+
+  } catch(err){
+    next(err)
+    // res.status(400).json({
+    //    status: 400,
+    //    error: err
+    // })
+  }
+
+
+//     .then((data) => {
+//       res.status(200).json({
+//         status: 200,
+//         data: JSON.parse(data.text)
+//       })
+//     }).catch((error) => {
+//       res.status(400).json({
+//         status: 400,
+//         error: error
+//       })
+//     })
+})
 
 
 
@@ -69,7 +115,7 @@ router.post('/login', async (req, res, next) => {
 
   } catch(err){
     next(err);
-    }
+  }
 
 });
 

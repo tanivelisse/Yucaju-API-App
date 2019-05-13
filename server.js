@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors');
+const superagent = require('superagent')
 
 require('./db/db');
 
@@ -31,6 +32,9 @@ const userController = require('./controllers/userController');
 
 app.use('/auth', authController);
 app.use('/users', userController);
+
+
+
 
 
 
