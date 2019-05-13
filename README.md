@@ -106,16 +106,6 @@ Deletes resource by id.
 Requested body should include the following fields:
 	--id
 
-
-
-
-
-
-Gets weather alerts by location based on town location through 3rd party API. 
- Request body should include the following fields:
-	-- zipcode 
-
-
 ### Models
 
 -- User Model
