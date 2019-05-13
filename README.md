@@ -41,14 +41,14 @@ Gets list of all users.
 Requested body should include the following fields:
 	--None
 
-`GET /users/:id`
+`GET /users/{id}`
 
 Gets one user.
 
 Requested body should include the following fields:
 	--user id
 
-`PUT /user/:id/edit`
+`PUT /user/{id}/edit`
 
 Updates the user municipality and barrio properties. 
 
@@ -56,21 +56,60 @@ Requested body should include the following fields:
 	-- municipality
 	-- barrio 
 
-`PUT /user/:id/editsafety`
+`PUT /user/{id}/editsafety`
 
 Updates the user safety. It takes a boolean value to indicate safety.
 
 Requested body should include the following fields:
 	-- safety
 
-`DELETE /user/:id --`
+`DELETE /user/{id} --`
 
 Deletes the user.
 
 Request body should include the following fields: 
-	-- user ID
+	-- id
 
-`GET /weather-alerts --`
+`GET /resources`
+
+Gets list of all resources.
+
+Request body should include the following fields:
+	--none
+
+`Get /resources/{id}`
+
+Gets one specific resource.
+
+Request body should include the following fields:
+	-- id
+
+`POST/resources/new`
+
+Creates a new resource.
+
+Requested body should include the following fields:
+	-- type
+	-- description
+
+`PUT /resources/{id}/update`
+
+Updates the resource description,
+
+Requested body should include the following fields:
+	-- id
+
+`DELETE /resources/{id}`
+
+Deletes resource by id.
+
+Requested body should include the following fields:
+	--id
+
+
+
+
+
 
 Gets weather alerts by location based on town location through 3rd party API. 
  Request body should include the following fields:
@@ -88,7 +127,11 @@ Gets weather alerts by location based on town location through 3rd party API.
 		  barrio: String,
 		  safety: Boolean
 		}```
-		
+-- Resources Model
+	``` {
+		  type: String,
+		  description: String
+		}```
 
 
 

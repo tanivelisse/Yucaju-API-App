@@ -47,7 +47,7 @@ router.get('/:id', async(req,res,next)=>{
 })
 
 //REASOURCES UPDATE ROUTE
-router.post('/:id/update', async(req,res,next)=>{
+router.put('/:id/update', async(req,res,next)=>{
 	try {
 		const updatedResource = await Resource.findByIdAndUpdate(req.params.id, req.body, {new: true});
 		res.json({
