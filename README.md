@@ -123,6 +123,7 @@ In this API we have two models, the User and the Resource. The resources created
 						ref: 'Resources'
 					 }]
 		}```
+		
 -- Resources 
 	``` {
 		  type: String,

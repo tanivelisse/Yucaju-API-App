@@ -5,7 +5,7 @@ const User = require('../models/user')
 const bcrypt = require ('bcryptjs')
 const superagent = require('superagent')
 
-router.get('/municipality', async (req, res, next) => {
+router.get('/municipalities', async (req, res, next) => {
   try {
     const apiRes = await superagent.get(`https://data.pr.gov/api/views/rtan-qj3c/rows.json`)
     console.log(typeof apiRes)
