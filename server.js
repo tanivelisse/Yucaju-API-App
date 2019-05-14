@@ -5,11 +5,13 @@ const session = require('express-session')
 const cors = require('cors');
 const superagent = require('superagent')
 
+require(dotenv).config()
+
 require('./db/db');
 
 //MIDDLEWARE 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
