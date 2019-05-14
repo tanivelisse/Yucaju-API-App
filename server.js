@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 //CORS MIDDLEWARE
 const corsOptions = {
-  origin: 'http://localhost:3000', // when deploying react app, this is where the address goes,
+  origin: process.env.REACT_URL, // when deploying react app, this is where the address goes,
   credentials: true, // allowing cookies to be sent with requests from the client (session cookie),
   optionsSuccessStatus: 200 // some legacy browsers IE11 choke on a 204, and options requests
 }
@@ -42,6 +42,6 @@ app.use('/api/v1/resources', resourceController);
 
 
 
-app.listen(8000, () => {
-  console.log('listening on port 8000');
+app.listen(process.env.PORT, () => {
+  console.log('listening on port ' + process.env.PORT);
 });
