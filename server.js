@@ -5,7 +5,7 @@ const session = require('express-session')
 const cors = require('cors');
 const superagent = require('superagent')
 
-require(dotenv).config()
+require('dotenv').config()
 
 require('./db/db');
 
