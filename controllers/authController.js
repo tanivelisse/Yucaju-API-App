@@ -50,15 +50,20 @@ router.post('/register', async (req, res, next) => {
   userDbEntry.barrio = req.body.barrio
 
   try {
+
+    // will want to check to make sure that a user with the same username does not exist 
+    // in the database 
+
     const newUser = await User.create(userDbEntry);
     req.session.logged = true;
     req.session.username = req.body.username;
     req.session.userDbId = newUser._id;
     console.log(newUser + '<=====');
 
+
     res.json({
       status: 200,
-      data: 'register successful'
+      data: newUser
     });
 
   } catch(err){
@@ -84,7 +89,7 @@ router.post('/login', async (req, res, next) => {
 
         res.json({
           status: 200,
-          data: 'login successful'
+          data: foundUser
         });
 
       }else{

@@ -20,6 +20,7 @@ router.get('/', async (req,res,next)=>{
 router.get('/:id', async(req,res,next)=>{
 	try{
 		const foundUser = await User.findById(req.params.id).populate('resources');
+		console.log( foundUser + "<======= foundUser show route");
 		res.json({
 			status: 200,
 			data: foundUser
