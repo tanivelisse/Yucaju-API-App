@@ -33,6 +33,9 @@ const authController  = require('./controllers/authController');
 const userController = require('./controllers/userController');
 const resourceController = require('./controllers/resourceController');
 
+app.get('/', (req,res)=>{
+	res.send("running")
+})
 app.use('/api/v1/auth', authController);
 app.use('/api/v1/users', userController);
 app.use('/api/v1/resources', resourceController);

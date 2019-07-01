@@ -7,33 +7,25 @@ const superagent = require('superagent')
 
 router.get('/municipalities', async (req, res, next) => {
   try {
-    const apiRes = await superagent.get(`https://data.pr.gov/api/views/rtan-qj3c/rows.json`)
-    console.log(typeof apiRes)
-    console.log(Object.keys(apiRes));
-    const text = JSON.parse(apiRes.text)
-    const data = text.data
-
-    // convert array of arrays 
-    // to array of 
-
-    const towns = data.map((barrioArr) => {
-      return {
-        municipality: barrioArr[barrioArr.length-9],
-        barrio: barrioArr[barrioArr.length-10]  
+    const apiRes = await superagent.get(
+      `https://data.pr.gov/resource/bq3m-25mu.json`,{
+        data: {
+      "$limit" : 1000,
+      "$$app_token" : process.env.APP_TOKEN
+    }
       }
-    })
-
-    res.status(200).json({
-      status: 200,
-      data: towns
-    })
+    )
 
   } catch(err){
     next(err)
   }
 })
 
-
+router.get('/code', (req,res)=>{
+  console.log('runing');
+  console.log(req.query.code);
+  res.send("runing faster")
+})
 
 
 router.post('/register', async (req, res, next) => {
