@@ -12,16 +12,13 @@ router.get('/municipalities', async (req, res, next) => {
       //console.log(Object.keys(apiRes));
       const text = JSON.parse(apiRes.text);
       const data = text.data
-
-   
-
       const towns = data.map((barrioArr) => {
         return {
           municipality: barrioArr[barrioArr.length-9],
-          barrio: barrioArr[barrioArr.length-10]  
+          barrio: barrioArr[barrioArr.length-10]
         }
       })
-
+      console.log(towns);
     res.status(200).json({
       status: 200,
       data: towns
@@ -36,34 +33,42 @@ router.get('/municipalities', async (req, res, next) => {
 
 
 router.post('/register', async (req, res, next) => {
-  console.log(req.body, ' this is session')
-  
-  const password = req.body.password
-  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-
-  const userDbEntry = {};
-  userDbEntry.username = req.body.username;
-  userDbEntry.password = passwordHash;
-  userDbEntry.name = req.body.name
-  userDbEntry.municipality = req.body.municipality
-  userDbEntry.barrio = req.body.barrio
+  //console.log(req.body, ' this is session')
 
   try {
+  
+    const password = req.body.password
+    const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
-    // will want to check to make sure that a user with the same username does not exist 
-    // in the database 
+    const userDbEntry = {};
 
-    const newUser = await User.create(userDbEntry);
-    req.session.logged = true;
-    req.session.username = req.body.username;
-    req.session.userDbId = newUser._id;
-    console.log(newUser + '<=====');
+    const foundUser = await User.findOne({'username': req.body.username});
+
+    if (!foundUser) {
+      userDbEntry.username = req.body.username;
+      userDbEntry.password = passwordHash;
+      userDbEntry.name = req.body.name;
+      userDbEntry.municipality = req.body.municipality;
+      userDbEntry.barrio = req.body.barrio;
+
+      const newUser = await User.create(userDbEntry);
+      req.session.logged = true;
+      req.session.username = req.body.username;
+      req.session.userDbId = newUser._id;
+      //console.log(newUser + '<=====');
 
 
-    res.json({
-      status: 200,
-      data: newUser
-    });
+      res.json({
+        status: 200,
+        data: newUser
+      });
+
+    } else if (foundUser){
+      res.json({
+        status:200,
+        message: "Sorry,this username is already taken!"
+      })
+    }
 
   } catch(err){
     console.log(err);
