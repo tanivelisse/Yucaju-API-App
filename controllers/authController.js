@@ -132,29 +132,36 @@ router.post('/login', async (req, res, next) => {
   console.log(req.body, ' this is session')
 
   try {
-    const foundUser = await User.findOne({'username': req.body.username});
-    console.log(foundUser + 'foundUser');
-
-    if(foundUser){
-      if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
-        req.session.message = '';
-        req.session.logged = true;
-        req.session.userDbId = foundUser._id;
-        console.log(req.session, ' logged in!');
-
+    if (req.body.username === "" || !req.body.username) {
         res.json({
-          status: 200,
-          data: foundUser
-        });
+          status:200,
+          message: "Please enter a username"
+        })
+    } 
+      const foundUser = await User.findOne({'username': req.body.username});
+      console.log(foundUser + 'foundUser');
 
-      }else{
+      if(foundUser){
+        if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
+          req.session.message = '';
+          req.session.logged = true;
+          req.session.userDbId = foundUser._id;
+          console.log(req.session, ' logged in!');
 
-        res.json({
-          status: 202,
-          data: "Username or Password is incorrect"
-        });
+          res.json({
+            status: 200,
+            data: foundUser
+          });
+
+        }else{
+
+          res.json({
+            status: 202,
+            message: "Username or Password is incorrect"
+          });
+
+        }
       }
-    }
 
   } catch(err){
     next(err);
