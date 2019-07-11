@@ -35,7 +35,7 @@ router.get('/barrios/api', async (req, res, next) => {
 
         res.json({
           status: 200,
-          message: "check terminal"
+          message: "Barrios call is done, check database"
         });
 
 
@@ -44,6 +44,17 @@ router.get('/barrios/api', async (req, res, next) => {
   }
 })
 
+router.get('/municipalities-and-barrios', async (req,res,next)=>{
+  try{
+    const foundBarrios = await Barrio.find({});
+    res.json({
+      status: 200,
+      data: foundBarrios
+    })
+  }catch(err){
+    next(err)
+  }
+})
 
 
 router.post('/register', async (req, res, next) => {
