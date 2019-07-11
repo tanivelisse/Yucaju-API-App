@@ -2,33 +2,47 @@ const express = require('express')
 const router = express.Router();
 const session = require('express-session')
 const User = require('../models/user')
+const Barrio = require('../models/barrio')
 const bcrypt = require ('bcryptjs')
 const superagent = require('superagent')
 
-// router.get('/municipalities', async (req, res, next) => {
-//   try {
-//       const apiRes = await superagent.get(`https://data.pr.gov/api/views/rtan-qj3c/rows.json`);
-//       //console.log(typeof apiRes)
-//       //console.log(Object.keys(apiRes));
-//       const text = JSON.parse(apiRes.text);
-//       const data = text.data
-//       const towns = data.map((barrioArr) => {
-//         return {
-//           municipality: barrioArr[barrioArr.length-9],
-//           barrio: barrioArr[barrioArr.length-10]
-//         }
-//       })
-//       console.log(towns);
-//     res.status(200).json({
-//       status: 200,
-//       data: towns
-//     });
+//third party API call for Municipality and Barrios data for registration 
 
-//   } catch(err){
-//     next(err)
-    
-//   }
-// })
+router.get('/barrios/api', async (req, res, next) => {
+  try {
+      const apiRes = await superagent.get(`https://data.pr.gov/api/views/rtan-qj3c/rows.json`);
+      //console.log(typeof apiRes)
+      //console.log(Object.keys(apiRes));
+      const text = JSON.parse(apiRes.text);
+      const data = text.data
+      const barrioListArr = data.map((barrioArr) => {
+        //create municipality array   
+        return {
+          municipality: barrioArr[barrioArr.length-9],
+          barrio: barrioArr[barrioArr.length-10]
+        }
+      })
+      let newBarrio;
+      const createModel = barrioListArr.forEach((element)=>{
+          newBarrio = new Barrio()
+          newBarrio.name = element.barrio
+          newBarrio.municipality = element.municipality
+          newBarrio.save()
+          console.log(newBarrio);
+          console.log("============");
+
+      });
+
+        res.json({
+          status: 200,
+          message: "check terminal"
+        });
+
+
+  } catch(err){
+    next(err)
+  }
+})
 
 
 
