@@ -142,7 +142,7 @@ router.post('/login', async (req, res, next) => {
       console.log(foundUser + 'foundUser');
 
       if(foundUser){
-        if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
+        if (bcrypt.compareSync(req.body.password, foundUser.password || req.body.password !== '')) {
           req.session.message = '';
           req.session.logged = true;
           req.session.userDbId = foundUser._id;
